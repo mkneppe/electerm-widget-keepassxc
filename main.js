@@ -230,8 +230,8 @@ async function forget () {
 }
 
 /**
- * For a credential-provider hook in electerm (not there yet): the entries for a
- * bookmark, and saving a login after it worked.
+ * electerm.credentialProvider: called by electerm when a bookmark without a
+ * saved password connects, and to save a login after it worked.
  */
 async function getCredentials (target) {
   return findLogins(getClient(), target)

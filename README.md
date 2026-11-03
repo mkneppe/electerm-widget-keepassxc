@@ -1,6 +1,9 @@
 # KeePassXC Search — an electerm widget
 
-Look up logins in [KeePassXC](https://keepassxc.org) and open SSH, RDP or Telnet sessions in [electerm](https://github.com/electerm/electerm) with them, without storing passwords in electerm.
+Passwords from [KeePassXC](https://keepassxc.org) for [electerm](https://github.com/electerm/electerm), without storing them in electerm:
+
+- SSH and RDP bookmarks **without a saved password** get user name and password from KeePassXC when they connect (electerm's credential provider hook, `electerm.credentialProvider` in `package.json`)
+- the widget panel searches by host or URL and opens SSH, RDP or Telnet sessions
 
 There is no UI in this folder: `electerm.configs` in `package.json` describes the form, electerm renders it and calls the functions in `main.js`.
 
@@ -20,7 +23,7 @@ test.js          tests against a fake KeePassXC (node --test test.js)
 mkneppe/electerm-widget-keepassxc
 ```
 
-Needs electerm **v5.8.0+**. `tweetnacl` is committed in `node_modules` on purpose: import never runs `npm install`.
+Needs electerm **v5.8.0+**, the bookmark lookup an electerm with the credential provider hook. `tweetnacl` is committed in `node_modules` on purpose: import never runs `npm install`.
 
 ## Setup
 
@@ -28,7 +31,19 @@ Needs electerm **v5.8.0+**. `tweetnacl` is committed in `node_modules` on purpos
 2. Open and unlock your database.
 3. Open the widget, press **Pair with KeePassXC** and confirm the request in KeePassXC with a name (e.g. `electerm`).
 
-## Use
+## Bookmarks
+
+A bookmark without a saved password is looked up by its URL: `ssh://host:port` or `rdp://host:port`.
+
+- one entry that fits (same user name if the bookmark has one) is used directly
+- otherwise electerm shows a dialog with the entries for the URL, other entries for the host, **New entry for <url>** and **Without KeePassXC Search**
+- **New entry**: type user name and password at the usual prompt (SSH prompt, RDP form); they are saved in KeePassXC (group `electerm`) once the session connected, so a wrong password is never stored. For RDP only after NLA accepted it
+- KeePassXC not running: a notice, then the usual prompt, and after the login an offer to save the password
+- the bookmark switch **Ignore password manager** keeps a bookmark out of this
+
+Give entries URLs like `ssh://host:port` or `rdp://host:port`, then they are found directly.
+
+## Search
 
 Enter a host or URL and press **Search**:
 
@@ -53,5 +68,5 @@ If the database is locked, KeePassXC shows its unlock dialog.
 
 ## Known limitations
 
-- No automatic lookup when a bookmark connects, and no saving of a new login after it worked: a widget is not told when a bookmark connects. `main.js` already has `getCredentials(target)` and `saveCredentials({ target, login, password })` for a credential-provider hook, discussed in electerm/electerm#4687
+- The automatic lookup for bookmarks needs an electerm with the credential provider hook (electerm/electerm#4687); older versions only have the search panel
 - KeePassXC finds entries by URL only, there is no search by title

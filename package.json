@@ -1,6 +1,6 @@
 {
   "name": "keepassxc-search",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Look up logins in KeePassXC and open SSH / RDP / Telnet sessions from electerm",
   "main": "main.js",
@@ -14,11 +14,15 @@
   "electerm": {
     "id": "keepassxc-search",
     "name": "KeePassXC Search",
-    "description": "Looks up logins in KeePassXC by host or URL (ssh://host:22, rdp://host:3389, ...) and opens SSH, RDP or Telnet sessions with them. Talks to KeePassXC through its browser integration; passwords stay in memory only, until the next search.",
-    "version": "0.1.0",
+    "description": "Passwords from KeePassXC: SSH and RDP bookmarks without a saved password get user name and password from the KeePassXC entry for ssh://host:port or rdp://host:port, and a new login is saved there once it worked. The panel also searches by host or URL and opens sessions. Talks to KeePassXC through its browser integration.",
+    "version": "0.2.0",
     "type": "frontend",
     "submitLabel": "Search",
     "persist": true,
+    "credentialProvider": {
+      "get": "getCredentials",
+      "save": "saveCredentials"
+    },
     "configs": [
       {
         "name": "query",

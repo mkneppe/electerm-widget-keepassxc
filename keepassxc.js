@@ -215,13 +215,13 @@ class KeePassXC {
   async pairedKey () {
     const [key] = this.keys()
     if (!key) {
-      throw new Error('electerm is not paired with KeePassXC yet')
+      throw new Error('electerm is not paired with KeePassXC yet: open the KeePassXC Search widget and pair')
     }
     await this.exchangeKeys()
     if (!this.verified) {
       const res = await this.call({ action: 'test-associate', id: key.id, key: key.key }, true)
       if (res.success !== 'true') {
-        throw new Error('KeePassXC does not know this pairing any more, pair again')
+        throw new Error('KeePassXC does not know this pairing any more: pair again in the KeePassXC Search widget')
       }
       this.verified = true
     }
