@@ -163,7 +163,7 @@ async function run (values = {}) {
     const kp = getClient()
     if (!kp.keys().length) {
       return {
-        message: 'Not paired with KeePassXC yet. Open and unlock your database, turn on Settings > Browser Integration in KeePassXC, then pair and confirm the request there.',
+        message: 'Not paired with KeePassXC yet (needed once). Open and unlock your database in KeePassXC and turn on Settings > Browser Integration, then press "Pair with KeePassXC" and confirm the request in KeePassXC with a name, e.g. "electerm".',
         messageType: 'info',
         buttons: [pairButton('Pair with KeePassXC')]
       }

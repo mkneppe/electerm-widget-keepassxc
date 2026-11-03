@@ -29,7 +29,7 @@ Needs electerm **v5.8.0+**, the bookmark lookup an electerm with the credential 
 
 1. In KeePassXC: **Settings → Browser Integration → Enable browser integration**. No browser has to be ticked.
 2. Open and unlock your database.
-3. Open the widget, press **Pair with KeePassXC** and confirm the request in KeePassXC with a name (e.g. `electerm`).
+3. **Pair once**: Settings → Widgets → KeePassXC Search, leave "Host or URL" empty and press **Search / pair**, then **Pair with KeePassXC**, and confirm the request in KeePassXC with a name (e.g. `electerm`). Until then bookmarks show a notice where to pair.
 
 ## Bookmarks
 
@@ -45,7 +45,7 @@ Give entries URLs like `ssh://host:port` or `rdp://host:port`, then they are fou
 
 ## Search
 
-Enter a host or URL and press **Search**:
+Enter a host or URL and press **Search / pair**:
 
 | Input | Looked up in KeePassXC |
 | --- | --- |

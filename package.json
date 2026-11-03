@@ -1,6 +1,6 @@
 {
   "name": "keepassxc-search",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Look up logins in KeePassXC and open SSH / RDP / Telnet sessions from electerm",
   "main": "main.js",
@@ -14,10 +14,10 @@
   "electerm": {
     "id": "keepassxc-search",
     "name": "KeePassXC Search",
-    "description": "Passwords from KeePassXC: SSH and RDP bookmarks without a saved password get user name and password from the KeePassXC entry for ssh://host:port or rdp://host:port, and a new login is saved there once it worked. The panel also searches by host or URL and opens sessions. Talks to KeePassXC through its browser integration.",
-    "version": "0.2.0",
+    "description": "First use: pair once. Leave \"Host or URL\" empty, press \"Search / pair\", then \"Pair with KeePassXC\" and confirm the request in KeePassXC (database unlocked, Settings > Browser Integration on). After that SSH and RDP bookmarks without a saved password get user name and password from the KeePassXC entry for ssh://host:port or rdp://host:port, and a new login is saved there once it worked. This panel also searches by host or URL and opens sessions.",
+    "version": "0.2.1",
     "type": "frontend",
-    "submitLabel": "Search",
+    "submitLabel": "Search / pair",
     "persist": true,
     "credentialProvider": {
       "get": "getCredentials",
@@ -29,7 +29,7 @@
         "label": "Host or URL",
         "type": "string",
         "placeholder": "server1, server1:2222 or rdp://10.0.0.5:3389",
-        "description": "A host is looked up as ssh://host:22, rdp://host:3389, telnet://host:23 and https://host (an entry with only the host as URL). Empty: show the pairing."
+        "description": "Empty: shows the pairing state, and the \"Pair with KeePassXC\" button when not paired yet (needed once). A host is looked up as ssh://host:22, rdp://host:3389, telnet://host:23 and https://host (an entry with only the host as URL)."
       }
     ]
   }
