@@ -1,0 +1,32 @@
+{
+  "name": "keepassxc-search",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Look up logins in KeePassXC and open SSH / RDP / Telnet sessions from electerm",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test.js"
+  },
+  "dependencies": {
+    "tweetnacl": "1.0.3"
+  },
+  "electerm": {
+    "id": "keepassxc-search",
+    "name": "KeePassXC Search",
+    "description": "Looks up logins in KeePassXC by host or URL (ssh://host:22, rdp://host:3389, ...) and opens SSH, RDP or Telnet sessions with them. Talks to KeePassXC through its browser integration; passwords stay in memory only, until the next search.",
+    "version": "0.1.0",
+    "type": "frontend",
+    "submitLabel": "Search",
+    "persist": true,
+    "configs": [
+      {
+        "name": "query",
+        "label": "Host or URL",
+        "type": "string",
+        "placeholder": "server1, server1:2222 or rdp://10.0.0.5:3389",
+        "description": "A host is looked up as ssh://host:22, rdp://host:3389, telnet://host:23 and https://host (an entry with only the host as URL). Empty: show the pairing."
+      }
+    ]
+  }
+}
