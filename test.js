@@ -33,7 +33,8 @@ function fakeKeePassXC (pipe) {
       // an entry with only the host as URL; KeePassXC reads it as https://
       { url: 'https://10.0.0.5', login: 'admin', password: 'pw-admin', name: '10.0.0.5', uuid: 'u4' }
     ],
-    seen: []
+    seen: [],
+    locked: false
   }
   const srv = net.createServer(sock => {
     let clientKey = null
@@ -50,6 +51,10 @@ function fakeKeePassXC (pipe) {
           nonce: b64(incrementNonce(fromB64(req.nonce))),
           success: 'true'
         }))
+        return
+      }
+      if (db.locked) {
+        sock.write(JSON.stringify({ action: req.action, errorCode: '1', error: 'Database not opened' }))
         return
       }
       const msg = JSON.parse(Buffer.from(nacl.box.open(fromB64(req.message), fromB64(req.nonce), clientKey, server.secretKey)).toString())
@@ -202,6 +207,15 @@ describe('KeePassXC client', () => {
     widget.useClient(new KeePassXC({ path: pipe, loadPairing: () => null, savePairing () {} }))
     const r = await widget.run({ query: 'server1' })
     assert.equal(r.buttons[0].action, 'pair')
+  })
+
+  test('a locked database is a readable error, unlocked it answers again', async () => {
+    const c = new KeePassXC({ path: pipe, loadPairing: () => pairing, savePairing () {} })
+    fake.db.locked = true
+    await assert.rejects(c.getLogins('ssh://server1:22'), /database is locked: unlock it/)
+    fake.db.locked = false
+    assert.equal((await c.getLogins('ssh://server1:22'))[0].login, 'alice')
+    c.close()
   })
 
   test('a closed KeePassXC is a readable error', async () => {

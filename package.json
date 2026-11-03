@@ -1,6 +1,6 @@
 {
   "name": "keepassxc-search",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Look up logins in KeePassXC and open SSH / RDP / Telnet sessions from electerm",
   "main": "main.js",
@@ -15,7 +15,7 @@
     "id": "keepassxc-search",
     "name": "KeePassXC Search",
     "description": "First use: pair once. Leave \"Host or URL\" empty, press \"Search / pair\", then \"Pair with KeePassXC\" and confirm the request in KeePassXC (database unlocked, Settings > Browser Integration on). After that SSH and RDP bookmarks without a saved password get user name and password from the KeePassXC entry for ssh://host:port or rdp://host:port, and a new login is saved there once it worked. This panel also searches by host or URL and opens sessions.",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "type": "frontend",
     "submitLabel": "Search / pair",
     "persist": true,

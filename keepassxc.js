@@ -173,7 +173,11 @@ class KeePassXC {
       ...(triggerUnlock ? { triggerUnlock: 'true' } : {})
     })
     if (res.error || !res.message) {
-      const e = new Error(res.error || 'KeePassXC: no answer for ' + payload.action)
+      // 1: database not opened, KeePassXC shows its unlock dialog (triggerUnlock)
+      const locked = String(res.errorCode) === '1'
+      const e = new Error(locked
+        ? 'The KeePassXC database is locked: unlock it in KeePassXC'
+        : res.error || 'KeePassXC: no answer for ' + payload.action)
       e.code = res.errorCode
       throw e
     }
